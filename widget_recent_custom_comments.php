@@ -62,16 +62,16 @@ if ( !class_exists('Widget_Recent_Custom_Comments') ) {
         }
 
 
-		public function enable_multi_posttypes( $clauses, $wpqc='' ){
+		public function enable_multi_posttypes( $clauses, $wpcq = '' ){
 			global $wpdb;
 
-			if( isset( $wpqc->query_vars['post_type'][0] ) ) {
-				$join = join( "', '", array_map( 'esc_sql', $wpqc->query_vars['post_type'] ) );
+			if( isset( $wpcq->query_vars['post_type'][0] ) ) {
+				$join = join( "', '", array_map( 'esc_sql', $wpcq->query_vars['post_type'] ) );
 
-				$replace = sprintf( "$wpdb->posts.post_type = '%s'", $wpqc->query_vars['post_type'][0] );
-				$replaceWidth   = sprintf( "$wpdb->posts.post_type IN ( '%s' ) ", $join );
+				$replace = sprintf( "$wpdb->posts.post_type = '%s'", $wpcq->query_vars['post_type'][0] );
+				$replace_width   = sprintf( "$wpdb->posts.post_type IN ( '%s' ) ", $join );
 
-				$clauses['where'] = str_replace( $replace, $replaceWidth, $clauses['where'] );
+				$clauses['where'] = str_replace( $replace, $replace_width, $clauses['where'] );
 			}
 
 			return $clauses;
